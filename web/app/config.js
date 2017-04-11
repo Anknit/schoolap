@@ -7,7 +7,6 @@
 
     function config($routeProvider, $locationProvider, $httpProvider) {
 
-        $locationProvider.html5Mode(false);
 
         // routes
         $routeProvider
@@ -16,22 +15,26 @@
                 controller: 'homeController',
                 controllerAs: 'home'
             })
-/*
-            .when('/contact', {
-                templateUrl: 'templatesviews/contact.html',
-                controller: 'MainController',
-                controllerAs: 'main'
+            .when('/compare', {
+                templateUrl: 'template/views/compare.html',
+                controller: 'compareController',
+                controllerAs: 'compare'
             })
-            .when('/setup', {
-                templateUrl: 'views/setup.html',
-                controller: 'MainController',
-                controllerAs: 'main'
+            .when('/discover', {
+                templateUrl: 'template/views/discover.html',
+                controller: 'discoverController',
+                controllerAs: 'discover'
             })
-*/
+            .when('/about', {
+                templateUrl: 'template/views/about.html',
+                controller: 'aboutController',
+                controllerAs: 'about'
+            })
             .otherwise({
                 redirectTo: '/'
             });
 
+        $locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('authInterceptor');
     }
 

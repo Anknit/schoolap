@@ -8,7 +8,7 @@
 
 <head>
 
-    <base href="/schoolap/web/">
+    <base href="/schoolap/trunk/web/">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Schoolap</title>
@@ -43,13 +43,19 @@
 		    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
+    <!-- Header -->
     <header class="row">
         <!-- Navigation -->
         <main-nav></main-nav>
     </header>
 
     <!-- Main view for templates -->
-    <div data-ng-view="" class="row"></div>
+    <div data-ng-view="" class="row views-container"></div>
+    
+    <!-- Footer -->
+    <footer class="row footer">
+        <site-footer></site-footer>
+    </footer>
 
 </body>
 

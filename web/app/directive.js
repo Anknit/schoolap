@@ -4,6 +4,7 @@
         .directive('mainNav', mainNav)
         .directive('inlineSchoolsList', inlineSchoolsList)
         .directive('featuredSchools', featuredSchools)
+        .directive('siteFooter', siteFooter)
         .directive('pollsSection', pollsSection)
         .directive('featuredPrograms', featuredPrograms)
         .directive('eventsArea', eventsArea)
@@ -36,6 +37,14 @@
         var DDO = {
             restrict: 'E',
             templateUrl: 'template/directives/featured-schools.html'
+        };
+        return DDO;
+    }
+
+    function siteFooter () {
+        var DDO = {
+            restrict: 'E',
+            templateUrl: 'template/directives/site-footer.html'
         };
         return DDO;
     }

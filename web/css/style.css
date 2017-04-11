@@ -94,3 +94,27 @@
 #home-compare-section .headline-text{
     color: #fff;
 }
+.footer {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.footer-links {
+    margin-bottom: 20px;
+}
+.footer-link-label {
+    color: #bbb;
+}
+.footer-links a {
+    color: #fafafa;
+    font-size: 16px;
+    line-height: 28px;
+    transition: color linear 2s;
+}
+.footer-links a:hover {
+    color: #00b0ff;
+}
+.views-container{
+    min-height:600px;
+}
