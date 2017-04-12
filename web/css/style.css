@@ -53,6 +53,12 @@
 #discover-page-banner{
     background-image: url('./../images/page-banner/discover-banner.jpg');
 }
+#about-page-banner{
+    background-image: url('./../images/page-banner/about-banner.jpg');
+}
+#browse-page-banner{
+    background-image: url('./../images/page-banner/about-banner.jpg');
+}
 .gutter-section {
     padding-top: 60px;
     padding-bottom: 60px;

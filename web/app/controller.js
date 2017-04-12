@@ -4,6 +4,7 @@
         .controller('homeController', homeController)
         .controller('compareController', compareController)
         .controller('discoverController', discoverController)
+        .controller('browseController', browseController)
         .controller('aboutController', aboutController);
     
 /*
@@ -19,6 +20,10 @@
     }
 
     function discoverController () {
+        var self = this;
+    }
+    
+    function browseController () {
         var self = this;
     }
     

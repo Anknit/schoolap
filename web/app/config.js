@@ -30,6 +30,11 @@
                 controller: 'aboutController',
                 controllerAs: 'about'
             })
+            .when('/browse', {
+                templateUrl: 'template/views/browse.html',
+                controller: 'browseController',
+                controllerAs: 'browse'
+            })
             .otherwise({
                 redirectTo: '/'
             });

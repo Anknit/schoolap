@@ -18,19 +18,25 @@
         return DDO;
     }
     
-    function inlineSchoolsList () {
+    inlineSchoolsList.$inject = ['schoolListService'];
+    function inlineSchoolsList (schoolListService) {
         var DDO = {
             restrict: 'E',
             scope:true,
             templateUrl: 'template/directives/inline-school-list.html',
             link: function (scope, elem, attr) {
                 scope.list = {
-                    label: attr.label    
+                    label: attr.label,
+                    data: []
                 };
+                schoolListService.getSchoolListByType(attr.type, 4, 0).then(function(response){
+                    if(response.status) {
+                        scope.list.data = response.data;
+                    }
+                });
             }
         };
         return DDO;
-        
     }
     
     function featuredSchools () {
