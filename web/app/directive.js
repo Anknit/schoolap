@@ -31,7 +31,9 @@
                 };
                 schoolListService.getSchoolListByType(attr.type, 4, 0).then(function(response){
                     if(response.status) {
-                        scope.list.data = response.data;
+                        if(response.data) {
+                            scope.list.data = response.data;
+                        }
                     }
                 });
             }
@@ -79,10 +81,21 @@
         return DDO;
     }
 
-    function featuredArticles () {
+    featuredArticles.$inject = ['articleListService'];
+    function featuredArticles (articleListService) {
         var DDO = {
             restrict: 'E',
-            templateUrl: 'template/directives/featured-articles.html'
+            scope:true,
+            templateUrl: 'template/directives/featured-articles.html',
+            link: function (scope, elem, attr){
+                articleListService.getFeaturedArticles(4 , 0).then(function(response){
+                    if(response.status) {
+                        if(response.data) {
+                            scope.articles = response.data;
+                        }
+                    }
+                });
+            }
         };
         return DDO;
     }
