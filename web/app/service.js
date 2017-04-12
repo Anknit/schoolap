@@ -2,7 +2,9 @@
     angular
         .module('schoolap')
         .service('appLogService', appLogService)
+        .service('alertService', alertService)
         .service('schoolListService', schoolListService)
+        .service('compareSchoolService', compareSchoolService)
         .service('articleListService', articleListService);
 
 //  Service for list of schools
@@ -51,11 +53,92 @@
         }
     }
     
+//  Service for comparing schools
+    compareSchoolService.$inject = ['$http', 'appConfig', 'appLogService'];
+    function compareSchoolService ($http, appConfig, appLogService) {
+        this.getStateList = getStateList;
+        this.getCityList = getCityList;
+        this.getAreaList = getAreaList;
+        this.getSchoolList = getSchoolList;
+        this.compareSchools = compareSchools;
+            
+        function getStateList () {
+            var requestUri = appConfig.APIENDPOINT + '?request=school_state_list';
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, response.data);
+            });
+        }
+        function getCityList (stateId) {
+            var requestUri = appConfig.APIENDPOINT + '?request=state_city_list';
+            if(typeof(stateId) !== "undefined" && stateId) {
+                requestUri += '&stateId=' + stateId;
+            }
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, response.data);
+            });
+        }
+        function getAreaList (cityId) {
+            var requestUri = appConfig.APIENDPOINT + '?request=city_area_list';
+            if(typeof(cityId) !== "undefined" && cityId) {
+                requestUri += '&cityId=' + cityId;
+            }
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, response.data);
+            });
+        }
+        function getSchoolList (areaId) {
+            var requestUri = appConfig.APIENDPOINT + '?request=area_school_list';
+            if(typeof(areaId) !== "undefined" && areaId) {
+                requestUri += '&areaId=' + areaId;
+            }
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, response.data);
+            });
+        }
+        function compareSchools(schoolIdArray) {
+            var requestUri = appConfig.APIENDPOINT + '?request=compare_schools';
+            var data = {
+                data: schoolIdArray
+            }
+            return $http.post(requestUri, data, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, response.data);
+            });
+        }
+    }
+    
 //  Service for application error and event logging
     appLogService.$inject = ['$log'];
     function appLogService ($log) {
         this.logerror = function (error, data) {
             $log.error(error);
+        }
+    }
+    
+//  Service for alerts and prompts in application
+    alertService.$inject = ['$window'];
+    function alertService ($window) {
+        this.alert = function (msg) {
+            $window.alert(msg);
         }
     }
     
