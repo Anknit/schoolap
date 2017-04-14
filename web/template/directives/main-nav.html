@@ -33,10 +33,12 @@
                     <a href="discover">Discover</a>
                 </li>
                 <li>
-                    <form class="navbar-form navbar-right">
-                        <button type="button" class="btn btn-success">Login</button>
-                        <button type="button" class="btn btn-default">Signup</button>
-                    </form>
+                    <div class="col-xs-12">
+                        <form class="navbar-form navbar-right">
+                            <a class="btn btn-success" data-ng-click="auth.type='login'; auth.label='Login'" data-target="#auth-modal" data-toggle="modal">Login</a>
+                            <a class="btn btn-default" data-ng-click="auth.type='register'; auth.label='Register'" data-target="#auth-modal" data-toggle="modal">Signup</a>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -44,3 +46,4 @@
     </div>
     <!-- /.container -->
 </nav>
+<auth-modal></auth-modal>

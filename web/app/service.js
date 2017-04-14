@@ -3,6 +3,7 @@
         .module('schoolap')
         .service('appLogService', appLogService)
         .service('alertService', alertService)
+        .service('userAuthService', userAuthService)
         .service('schoolListService', schoolListService)
         .service('compareSchoolService', compareSchoolService)
         .service('articleListService', articleListService);
@@ -49,6 +50,54 @@
                 }
             }, function(error){
                 appLogService.logerror(error, response.data);
+            });
+        }
+    }
+    
+//  Service for user authentication
+    userAuthService.$inject = ['$http', 'appConfig', 'appLogService'];
+    function userAuthService ($http, appConfig, appLogService) {
+        this.loginUser = loginUser;
+        this.registerUser = registerUser;
+        this.forgotPasswd = forgotPasswd;
+        
+        function loginUser (credObj) {
+            var data= {
+                user: credObj.username,
+                pswd: credObj.password
+            };
+            return $http.post(appConfig.APIENDPOINT + '?request=userLogin', data, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error);
+            });
+        }
+
+        function registerUser (email) {
+            var data= {
+                username: email
+            };
+            return $http.post(appConfig.APIENDPOINT + '?request=userRegister', data, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error);
+            });
+        }
+
+        function forgotPasswd (email) {
+            var data= {
+                username: email
+            };
+            return $http.post(appConfig.APIENDPOINT + '?request=forgotPassword', data, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error);
             });
         }
     }

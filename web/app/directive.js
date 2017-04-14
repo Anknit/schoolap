@@ -5,6 +5,7 @@
         .directive('inlineSchoolsList', inlineSchoolsList)
         .directive('featuredSchools', featuredSchools)
         .directive('siteFooter', siteFooter)
+        .directive('authModal', authModal)
         .directive('pollsSection', pollsSection)
         .directive('featuredPrograms', featuredPrograms)
         .directive('eventsArea', eventsArea)
@@ -56,7 +57,60 @@
         };
         return DDO;
     }
-
+    
+    authModal.$inject = ['userAuthService'];
+    function authModal (userAuthService) {
+        var DDO = {
+            restrict: 'E',
+            templateUrl: 'template/directives/auth-modal.html',
+            link: function (scope, elem, attr) {
+                scope.auth ={
+                    type: 'login',
+                    label: 'Login'
+                };
+                scope.login = {
+                    username: '',
+                    password: ''
+                };
+                scope.register = {
+                    username: ''
+                };
+                scope.loginUser = function (loginObj) {
+                    var data = {
+                        username: loginObj.username,
+                        password: loginObj.password
+                    }
+                    userAuthService.loginUser(data).then(function(response){
+                        if(response.status) {
+                            
+                        } else {
+                            
+                        }
+                    });
+                };
+                scope.registerUser = function (registerObj) {
+                    userAuthService.registerUser(registerObj.username).then(function(response){
+                        if(response.status) {
+                            
+                        } else {
+                            
+                        }
+                    });
+                };
+                scope.forgotPassword = function (loginObj) {
+                    userAuthService.forgotPasswd(loginObj.username).then(function(response){
+                        if(response.status) {
+                            
+                        } else {
+                            
+                        }
+                    });
+                }
+            }
+        };
+        return DDO;
+    }
+    
     function pollsSection () {
         var DDO = {
             restrict: 'E',
