@@ -7,6 +7,3 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(css|js|html|png|jpg|jpeg|gif|txt)
 RewriteRule (.*) ?%{QUERY_STRING} [L]
 
-<FilesMatch "\.(jpg|jpeg|png|gif|swf|css|svg|js)$">
-    Header set Cache-Control "max-age=604800, public"
-</FilesMatch>

@@ -28,12 +28,12 @@
             link: function (scope, elem, attr) {
                 scope.list = {
                     label: attr.label,
-                    data: []
+                    schoolData: []
                 };
                 schoolListService.getSchoolListByType(attr.type, 4, 0).then(function(response){
                     if(response.status) {
                         if(response.data) {
-                            scope.list.data = response.data;
+                            scope.list.schoolData = response.data;
                         }
                     }
                 });

@@ -20,15 +20,15 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('WP_CACHE', true); //Added by WP-Cache Manager
-define( 'WPCACHEHOME', 'C:\wamp\www\schoolap\trunk\wordpress\wp-content\plugins\wp-super-cache/' ); //Added by WP-Cache Manager
+// define('WP_CACHE', true); //Added by WP-Cache Manager
+// define( 'WPCACHEHOME', 'C:\wamp\www\schoolap\trunk\wordpress\wp-content\plugins\wp-super-cache/' ); //Added by WP-Cache Manager
 define('DB_NAME', 'schoolapwordpress');
 
 /** MySQL database username */
 define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'root123');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
