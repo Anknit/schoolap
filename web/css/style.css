@@ -1,3 +1,6 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
 .navbar {
     margin-bottom: 0px;
     background: #fff;
@@ -73,7 +76,7 @@
 }
 
 #home-main-section {
-    background: #f5f5f5;
+    background: #FAF9F5;
 }
 
 .headline-text {
@@ -88,7 +91,7 @@
 
 .card {
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .card .thumbnail {
@@ -98,10 +101,8 @@
 }
 
 .inline-schools-section {
-    padding-top: 20px;
-    padding-bottom: 40px;
-    float: left;
-    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 60px;
 }
 
 .inline-schools-section .card .thumbnail img {
@@ -112,9 +113,12 @@
     padding: 0px 10px;
 }
 .inline-schools-section .list-label {
-    font-weight: 100;
-    font-size: 20px;
-    margin: 20px 0px;
+    margin-bottom: 30px;
+    font-size:26px;
+}
+.inline-schools-section .school-name {
+    color: #777;
+    font-size: 14px;
 }
 .featured-article-section .article {
     margin-top: 20px;

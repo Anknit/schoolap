@@ -18,6 +18,9 @@
                 case 'featured_articles':
                     $response = getArticleList();
                     break;
+                case 'school_data':
+                    $response = getSchoolData();
+                    break;
                 default:
                     $response['status'] = false;
                     break;
@@ -28,24 +31,107 @@
     }
 
 function getSchoolList () {
-    $url = 'http://localhost/schoolap/trunk/wordpress/wp-json/wp/v2/posts?_embed&per_page=4';
-   
-    $opts = array(
-        'http'=>array(
-            'method'=>"GET",
-            'header'=>  "Content-type: application/x-www-form-urlencoded\r\n".
-                        "Accept-language: en\r\n" .
-                        "Cookie: foo=bar\r\n"
-        )
+    $perPage = 4;
+    if(isset($_REQUEST['count'])) {
+        $perPage = $_REQUEST['count'];
+    }
+    $queryArr = array(
+        '_embed' => '',
+        'per_page' => $perPage,
+        'categories' => '2',
+        'tags' => '6'
     );
-
-    $context = stream_context_create($opts);
-
-    $fp = file_get_contents($url, false, $context);
-    return array('status'=> true, 'data' => json_decode($fp));
+    $response = wpQuery('getPosts', $queryArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
 }
 
 function getArticleList () {
-    return array('status' =>true);
+    $perPage = 4;
+    if(isset($_REQUEST['count'])) {
+        $perPage = $_REQUEST['count'];
+    }
+    $queryArr = array(
+        '_embed' => '',
+        'per_page' => $perPage,
+        'categories' => '3'
+    );
+    $response = wpQuery('getPosts', $queryArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
 }
+
+function getSchoolData () {
+    $slug = '';
+    if(isset($_REQUEST['slug'])) {
+        $slug = $_REQUEST['slug'];
+    }
+    $queryArr = array(
+        '_embed' => '',
+        'slug' => $slug
+    );
+    $response = wpQuery('getPosts', $queryArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
+}
+
+function wpQuery($reqType, $queryArr) {
+    $response = array();
+    $url = 'http://localhost/schoolap/trunk/wordpress/wp-json/wp/v2/';
+    $method = 'GET';
+    $content = '';
+    $endpoint = '';
+    switch($reqType) {
+        case 'getPosts':
+            $method = 'GET';
+            $endpoint = 'posts';
+            break;
+        default:
+            break;
+    }
+    if($endpoint != '') {
+        $url .= $endpoint;
+        if($queryArr) {
+            $query= http_build_query($queryArr);
+            if($method == 'GET') {
+                $url .= '?'.$query;
+            } else{
+                $content = $query;
+            }
+        }
+
+        $opts = array(
+            'http'=>array(
+                'method'=>$method,
+                'header'=>  "Content-type: application/x-www-form-urlencoded\r\n".
+                            "Accept-language: en\r\n" .
+                            "Cookie: foo=bar\r\n",
+                'content'=>$content
+            )
+        );
+        $context = stream_context_create($opts);
+        $fp = file_get_contents($url, false, $context);
+        if($fp) {
+            $response['status'] = true;
+            $response['data'] = json_decode($fp);
+        } else {
+            $response['status'] = false;
+            $response['data'] = 'Failed to get response from endpoint';
+        }
+    } else {
+        $response['status'] = false;
+        $response['data'] = 'Invalid API endpoint';
+    }
+    return $response;
+}
+
 ?>

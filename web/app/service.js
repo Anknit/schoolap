@@ -12,6 +12,7 @@
     schoolListService.$inject = ['$http', 'appConfig', 'appLogService'];
     function schoolListService ($http, appConfig, appLogService) {
         this.getSchoolListByType = getSchoolByType;
+        this.getSchoolBySlug = getSchoolBySlug;
             
         function getSchoolByType(type, count, start) {
             var requestUri = appConfig.APIENDPOINT + '?request=school_list&type=' + type;
@@ -26,7 +27,18 @@
                     return response.data;
                 }
             }, function(error){
-                appLogService.logerror(error, response.data);
+                appLogService.logerror(error, error.data);
+            });
+        }
+
+        function getSchoolBySlug(slug) {
+            var requestUri = appConfig.APIENDPOINT + '?request=school_data&slug=' + slug;
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, error.data);
             });
         }
     }

@@ -4,7 +4,7 @@
     </div>
     <div class="col-xs-12">
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 article">
+            <div class="col-xs-12 col-sm-6 col-md-4 article" data-ng-repeat="article in articles">
                 <div class="card">
                     <div class="card-inner">
                         <div class="thumbnail">
@@ -14,82 +14,10 @@
                             <div class="caption">
                                 <div>
                                     <a href="#">
-                                        <h4>Improving Your Employability Whilst Studying</h4>
+                                        <h4 data-ng-bind="article.title.rendered"></h4>
                                     </a>
                                 </div>
-                                <div>
-                                    <p>
-                                        Gaining work experience while you study will help you thrive in your future career.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 article">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="images/featured-articles/article2.jpg" alt="Article2">
-                            </a>
-                            <div class="caption">
-                                <div>
-                                    <a href="#">
-                                        <h4>Finding The Right School For You: 6 Factors To Consider</h4>
-                                    </a>
-                                </div>
-                                <div>
-                                    <p>
-                                        Your university years are an investment in building your future self - so choose wisely!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 article">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="images/featured-articles/article3.jpg" alt="Article3">
-                            </a>
-                            <div class="caption">
-                                <div>
-                                    <a href="#">
-                                        <h4>Co-op: The Smart Choice For Future Professional Success</h4>
-                                    </a>
-                                </div>
-                                <div>
-                                    <p>
-                                        Gain practical experience, build your resumé and discover your strengths.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 article">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="images/featured-articles/article4.jpg" alt="Article4">
-                            </a>
-                            <div class="caption">
-                                <div>
-                                    <a href="#">
-                                        <h4>Career Ready Grads For A Complex World</h4>
-                                    </a>
-                                </div>
-                                <div>
-                                    <p>
-                                        Explore your career development options at the British Columbia Institute of Technology.
-                                    </p>
+                                <div data-ng-bind-html="article.excerpt.rendered">
                                 </div>
                             </div>
                         </div>

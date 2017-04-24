@@ -35,6 +35,11 @@
                 controller: 'browseController',
                 controllerAs: 'browse'
             })
+            .when('/schools/:slug', {
+                templateUrl: 'template/views/schoolHome.html',
+                controller: 'schoolHomeController',
+                controllerAs: 'schoolHome'
+            })
             .otherwise({
                 redirectTo: '/'
             });

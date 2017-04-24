@@ -142,7 +142,7 @@
             scope:true,
             templateUrl: 'template/directives/featured-articles.html',
             link: function (scope, elem, attr){
-                articleListService.getFeaturedArticles(4 , 0).then(function(response){
+                articleListService.getFeaturedArticles(10 , 0).then(function(response){
                     if(response.status) {
                         if(response.data) {
                             scope.articles = response.data;

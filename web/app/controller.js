@@ -5,6 +5,7 @@
         .controller('compareController', compareController)
         .controller('discoverController', discoverController)
         .controller('browseController', browseController)
+        .controller('schoolHomeController', schoolHomeController)
         .controller('aboutController', aboutController);
     
 /*
@@ -102,5 +103,18 @@
     
     function aboutController () {
         var self =this;
+    }
+    
+    schoolHomeController.$inject = ['schoolListService', '$routeParams']
+    function schoolHomeController (schoolListService, $routeParams) {
+        var self = this, slugName = $routeParams.slug;
+        self.schoolData = [];
+        schoolListService.getSchoolBySlug(slugName).then(function (response) {
+            if(response.status) {
+                if(response.data) {
+                    self.schoolData = response.data[0];
+                }
+            }
+        });
     }
 })();

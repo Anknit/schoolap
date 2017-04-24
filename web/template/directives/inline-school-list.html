@@ -1,8 +1,6 @@
 <div class="row inline-schools-section">
     <div class="col-xs-12">
-        <h4 data-ng-bind="list.label" class="list-label"></h4>
-    </div>
-    <div class="col-xs-12">
+        <h5 data-ng-bind="list.label" class="list-label text-center row"></h5>
         <div class="row">
             <div class="col-xs-6 col-sm-3" data-ng-repeat="school in list.schoolData">
                 <div class="card">
@@ -10,50 +8,19 @@
                         <div class="thumbnail">
                             <img data-ng-src="{{school['_embedded']['wp:featuredmedia'][0]['source_url']}}" alt="School1">
                             <div class="caption">
-                                <h4 data-ng-bind="school.title.rendered"></h4>
+                                <a data-ng-href="{{'schools/' + school.slug}}">
+                                    <h6 data-ng-bind="school.title.rendered" class="school-name"></h6>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-<!--
-            <div class="col-xs-6 col-sm-3">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <img src="images/featured-schools/school1.jpg" alt="School1">
-                            <div class="caption">
-                                <h4>School 2</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <a class="btn btn-link" href="#">See All</a>
             </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <img src="images/featured-schools/school2.jpg" alt="School2">
-                            <div class="caption">
-                                <h4>School 3</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="thumbnail">
-                            <img src="images/featured-schools/school3.jpg" alt="School3">
-                            <div class="caption">
-                                <h4>School 4</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
--->
         </div>
     </div>
 </div>
