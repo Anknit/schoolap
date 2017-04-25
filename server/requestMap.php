@@ -38,8 +38,7 @@ function getSchoolList () {
     $queryArr = array(
         '_embed' => '',
         'per_page' => $perPage,
-        'categories' => '2',
-        'tags' => '6'
+        'categories' => '2'
     );
     $response = wpQuery('getPosts', $queryArr);
     if($response['status']) {

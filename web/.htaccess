@@ -7,3 +7,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(css|js|html|png|jpg|jpeg|gif|txt)
 RewriteRule (.*) ?%{QUERY_STRING} [L]
 
+php_value post_max_size 524288000 
+php_value upload_max_filesize 524288000
+php_value max_execution_time 30000000
