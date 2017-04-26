@@ -1,0 +1,65 @@
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 data-ng-bind="articleHome.articleData.title.rendered"></h1>
+        </div>
+        <div class="col-xs-12" data-ng-bind-html="articleHome.articleData.content.rendered">
+        </div>
+    </div>
+    <div class="row" data-ng-if="articleHome.articleData.metadata">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr data-ng-if="articleHome.articleData.metadata.address && articleHome.articleData.metadata.address != ''">
+                        <td class="col-xs-4">Address</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.address"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.affiliation_number && articleHome.articleData.metadata.affiliation_number != ''">
+                        <td class="col-xs-4">Affiliation Number</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.affiliation_number"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.foundation_year && articleHome.articleData.metadata.foundation_year != ''">
+                        <td class="col-xs-4">Foundation Year</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.foundation_year"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.status_of_school && articleHome.articleData.metadata.status_of_school != ''">
+                        <td class="col-xs-4">School Status</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.status_of_school"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.state && articleHome.articleData.metadata.state != ''">
+                        <td class="col-xs-4">State</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.state"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.district && articleHome.articleData.metadata.district != ''">
+                        <td class="col-xs-4">District</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.district"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.pin && articleHome.articleData.metadata.pin != ''">
+                        <td class="col-xs-4">Pin Code</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.pin"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="articleHome.articleData.metadata.website && articleHome.articleData.metadata.website != ''">
+                        <td class="col-xs-4">Website</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="articleHome.articleData.metadata.website"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

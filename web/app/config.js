@@ -35,10 +35,15 @@
                 controller: 'browseController',
                 controllerAs: 'browse'
             })
-            .when('/schools/:slug', {
+            .when('/schools/:id/:slug', {
                 templateUrl: 'template/views/schoolHome.html',
                 controller: 'schoolHomeController',
                 controllerAs: 'schoolHome'
+            })
+            .when('/article/:id/:slug', {
+                templateUrl: 'template/views/articleHome.html',
+                controller: 'articleHomeController',
+                controllerAs: 'articleHome'
             })
             .otherwise({
                 redirectTo: '/'

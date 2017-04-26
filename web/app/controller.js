@@ -6,6 +6,7 @@
         .controller('discoverController', discoverController)
         .controller('browseController', browseController)
         .controller('schoolHomeController', schoolHomeController)
+        .controller('articleHomeController', articleHomeController)
         .controller('aboutController', aboutController);
     
 /*
@@ -107,12 +108,25 @@
     
     schoolHomeController.$inject = ['schoolListService', '$routeParams']
     function schoolHomeController (schoolListService, $routeParams) {
-        var self = this, slugName = $routeParams.slug;
+        var self = this, slugName = $routeParams.slug, schoolId = $routeParams.id;
         self.schoolData = [];
-        schoolListService.getSchoolBySlug(slugName).then(function (response) {
+        schoolListService.getSchoolById(schoolId, slugName).then(function (response) {
             if(response.status) {
                 if(response.data) {
-                    self.schoolData = response.data[0];
+                    self.schoolData = response.data;
+                }
+            }
+        });
+    }
+
+    articleHomeController.$inject = ['articleListService', '$routeParams']
+    function articleHomeController (articleListService, $routeParams) {
+        var self = this, slugName = $routeParams.slug, articleId = $routeParams.id;
+        self.articleData = [];
+        articleListService.getArticleById(articleId, slugName).then(function (response) {
+            if(response.status) {
+                if(response.data) {
+                    self.articleData = response.data;
                 }
             }
         });

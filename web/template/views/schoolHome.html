@@ -6,4 +6,60 @@
         <div class="col-xs-12" data-ng-bind-html="schoolHome.schoolData.content.rendered">
         </div>
     </div>
+    <div class="row" data-ng-if="schoolHome.schoolData.metadata">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr data-ng-if="schoolHome.schoolData.metadata.address && schoolHome.schoolData.metadata.address != ''">
+                        <td class="col-xs-4">Address</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.address"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.affiliation_number && schoolHome.schoolData.metadata.affiliation_number != ''">
+                        <td class="col-xs-4">Affiliation Number</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.affiliation_number"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.foundation_year && schoolHome.schoolData.metadata.foundation_year != ''">
+                        <td class="col-xs-4">Foundation Year</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.foundation_year"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.status_of_school && schoolHome.schoolData.metadata.status_of_school != ''">
+                        <td class="col-xs-4">School Status</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.status_of_school"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.state && schoolHome.schoolData.metadata.state != ''">
+                        <td class="col-xs-4">State</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.state"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.district && schoolHome.schoolData.metadata.district != ''">
+                        <td class="col-xs-4">District</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.district"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.pin && schoolHome.schoolData.metadata.pin != ''">
+                        <td class="col-xs-4">Pin Code</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.pin"></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="schoolHome.schoolData.metadata.website && schoolHome.schoolData.metadata.website != ''">
+                        <td class="col-xs-4">Website</td>
+                        <td class="col-xs-8">
+                            <div data-ng-bind="schoolHome.schoolData.metadata.website"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>

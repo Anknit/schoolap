@@ -21,6 +21,9 @@
                 case 'school_data':
                     $response = getSchoolData();
                     break;
+                case 'article_data':
+                    $response = getArticleData();
+                    break;
                 default:
                     $response['status'] = false;
                     break;
@@ -68,14 +71,20 @@ function getArticleList () {
 
 function getSchoolData () {
     $slug = '';
+    $id = 0;
     if(isset($_REQUEST['slug'])) {
         $slug = $_REQUEST['slug'];
+    }
+    if(isset($_REQUEST['id'])) {
+        $id = $_REQUEST['id'];
     }
     $queryArr = array(
         '_embed' => '',
         'slug' => $slug
     );
-    $response = wpQuery('getPosts', $queryArr);
+    
+    $urlArr = array($id);
+    $response = wpQuery('getPosts', $queryArr, $urlArr);
     if($response['status']) {
         return $response;
     } else {
@@ -83,7 +92,30 @@ function getSchoolData () {
     }
 }
 
-function wpQuery($reqType, $queryArr) {
+function getArticleData () {
+    $slug = '';
+    $id = 0;
+    if(isset($_REQUEST['slug'])) {
+        $slug = $_REQUEST['slug'];
+    }
+    if(isset($_REQUEST['id'])) {
+        $id = $_REQUEST['id'];
+    }
+    $queryArr = array(
+        '_embed' => '',
+        'slug' => $slug
+    );
+    
+    $urlArr = array($id);
+    $response = wpQuery('getPosts', $queryArr, $urlArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
+}
+
+function wpQuery($reqType, $queryArr, $urlArray) {
     $response = array();
     $url = 'http://localhost/schoolap/trunk/wordpress/wp-json/wp/v2/';
     $method = 'GET';
@@ -99,6 +131,11 @@ function wpQuery($reqType, $queryArr) {
     }
     if($endpoint != '') {
         $url .= $endpoint;
+        
+        if(isset($urlArray) && count($urlArray) > 0) {
+            $url .= '/'.(implode("/", $urlArray));
+        }
+        
         if($queryArr) {
             $query= http_build_query($queryArr);
             if($method == 'GET') {

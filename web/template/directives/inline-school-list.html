@@ -8,7 +8,7 @@
                         <div class="thumbnail">
                             <img data-ng-src="{{school['_embedded']['wp:featuredmedia'][0]['source_url']}}" alt="School1">
                             <div class="caption">
-                                <a data-ng-href="{{'schools/' + school.slug}}">
+                                <a data-ng-href="{{'schools/' + school.id + '/' + school.slug}}">
                                     <h6 data-ng-bind="school.title.rendered" class="school-name"></h6>
                                 </a>
                             </div>
