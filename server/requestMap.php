@@ -125,6 +125,7 @@ function wpQuery($reqType, $queryArr) {
         } else {
             $response['status'] = false;
             $response['data'] = 'Failed to get response from endpoint';
+            $response['error'] = error_get_last();
         }
     } else {
         $response['status'] = false;

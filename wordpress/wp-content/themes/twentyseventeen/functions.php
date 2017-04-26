@@ -564,3 +564,20 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
  * SVG icons functions and filters.
  */
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
+
+function wp_rest_api_alter() {
+  register_rest_field( 'post',
+      'metadata',
+      array(
+        'get_callback'    => function($post, $field, $request){
+          if (function_exists('get_post_meta')) {
+            return get_post_meta($post['id'], '','');
+          }
+          return [];
+        },
+        'update_callback' => null,
+        'schema'          => null
+      )
+  );
+}
+add_action( 'rest_api_init', 'wp_rest_api_alter');
