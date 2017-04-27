@@ -92,7 +92,7 @@ function getCbseData ($counter) {
 	}
 }
 if(!isset($_SESSION['startCount'] )) {
-	$_SESSION['startCount'] = 0;
+	$_SESSION['startCount'] = 14000;
 	$_SESSION['limitCount'] = 1000;
 }
 	$cbseData = '';

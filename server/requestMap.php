@@ -132,7 +132,7 @@ function getArticleData () {
     }
 }
 
-function wpQuery($reqType, $queryArr, $urlArray) {
+function wpQuery($reqType, $queryArr, $urlArray = array()) {
     $response = array();
     $url = 'http://localhost/schoolap/trunk/wordpress/wp-json/wp/v2/';
     $method = 'GET';
