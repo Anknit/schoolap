@@ -38,13 +38,22 @@
 
 function getSchoolList () {
     $perPage = 4;
+    $startIndex = 0;
+    $category = '2';
+    if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'category' && isset($_REQUEST['category'])) {
+        $category = getCatIdFromSlug($_REQUEST['category']);
+        $perPage = 10;
+    }
     if(isset($_REQUEST['count'])) {
         $perPage = $_REQUEST['count'];
+    }
+    if(isset($_REQUEST['start'])) {
+        $startIndex = $_REQUEST['start'];
     }
     $queryArr = array(
         '_embed' => '',
         'per_page' => $perPage,
-        'categories' => '2'
+        'categories' => $category
     );
     $response = wpQuery('getPosts', $queryArr);
     if($response['status']) {
@@ -132,6 +141,18 @@ function getArticleData () {
     }
 }
 
+function getCatIdFromSlug ($slug) {
+    $queryArr = array(
+        'slug' => $slug
+    );
+    $response = wpQuery('getCategories', $queryArr);
+    if($response['status']) {
+        return $response['data'][0]['id'];
+    } else {
+        return 0;
+    }
+}
+
 function wpQuery($reqType, $queryArr, $urlArray = array()) {
     $response = array();
     $url = 'http://localhost/schoolap/trunk/wordpress/wp-json/wp/v2/';
@@ -179,7 +200,7 @@ function wpQuery($reqType, $queryArr, $urlArray = array()) {
         $fp = file_get_contents($url, false, $context);
         if($fp) {
             $response['status'] = true;
-            $response['data'] = json_decode($fp);
+            $response['data'] = json_decode($fp, true);
         } else {
             $response['status'] = false;
             $response['data'] = 'Failed to get response from endpoint';

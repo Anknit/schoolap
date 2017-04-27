@@ -3,9 +3,9 @@
         .module('schoolap')
         .config(config);
 
-    config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
+    config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', 'uiGmapGoogleMapApiProvider'];
 
-    function config($routeProvider, $locationProvider, $httpProvider) {
+    function config($routeProvider, $locationProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
 
 
         // routes
@@ -35,7 +35,7 @@
                 controller: 'browseController',
                 controllerAs: 'browse'
             })
-            .when('/schools/:id/:slug', {
+            .when('/school/:id/:slug', {
                 templateUrl: 'template/views/schoolHome.html',
                 controller: 'schoolHomeController',
                 controllerAs: 'schoolHome'
@@ -45,12 +45,23 @@
                 controller: 'articleHomeController',
                 controllerAs: 'articleHome'
             })
+            .when('/schools/:filterType/:filterValue', {
+                templateUrl: 'template/views/schoolList.html',
+                controller: 'schoolListController',
+                controllerAs: 'schoolList'
+            })
             .otherwise({
                 redirectTo: '/'
             });
 
         $locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('authInterceptor');
+        
+        uiGmapGoogleMapApiProvider.configure({
+            key: 'AIzaSyByW3u9ykUCK8W4s8rbRwLDVuh6XBoQVEM',
+            v: '3.26', //defaults to latest 3.X anyhow
+            libraries: 'weather,geometry,visualization'
+        });
     }
 
     angular

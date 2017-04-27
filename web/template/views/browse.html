@@ -1,2 +1,20 @@
 <section class="container-fluid banner-section" id="browse-page-banner">
 </section>
+<section class="container-fluid" data-ng-if="browse.browseType == 'states'">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center">Browse schools by States</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4" data-ng-repeat="state in browse.states">
+                    <div class="form-group">
+                        <a data-ng-href="{{'schools/state/' + state.slug}}" data-ng-bind="state.name"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

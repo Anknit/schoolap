@@ -1,13 +1,32 @@
 <section class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3 data-ng-bind="schoolHome.schoolData.title.rendered"></h3>
+    <div class="row school-header-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 data-ng-bind="schoolHome.schoolData.title.rendered"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="meta-box">
+                        <div data-ng-bind="schoolHome.schoolData.metadata.address"></div>
+                    </div>
+                    <div class="meta-box">
+                        <div data-ng-bind="schoolHome.schoolData.metadata.foundation_year"></div>
+                    </div>
+                    <div class="meta-box">
+                        <div data-ng-bind="schoolHome.schoolData.metadata.status_of_school"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-12" data-ng-bind-html="schoolHome.schoolData.content.rendered">
+    </div>
+    <div class="row">
+        <div class="container" data-ng-bind-html="schoolHome.schoolData.content.rendered">
         </div>
     </div>
     <div class="row" data-ng-if="schoolHome.schoolData.metadata">
-        <div class="col-xs-12">
+        <div class="container">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr data-ng-if="schoolHome.schoolData.metadata.address && schoolHome.schoolData.metadata.address != ''">
@@ -60,6 +79,13 @@
                     </tr>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <ui-gmap-google-map center='schoolHome.map.center' zoom='schoolHome.map.zoom'>
+                <ui-gmap-marker coords="schoolHome.marker.coords" options="schoolHome.marker.options" events="schoolHome.marker.events" idkey="schoolHome.marker.id"></ui-gmap-marker>
+            </ui-gmap-google-map>
         </div>
     </div>
 </section>

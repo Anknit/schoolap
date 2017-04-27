@@ -15,7 +15,8 @@
     function schoolListService ($http, appConfig, appLogService) {
         this.getSchoolListByType = getSchoolByType;
         this.getSchoolById = getSchoolById;
-            
+        this.getSchoolsByCategory = getSchoolsByCategory;
+  
         function getSchoolByType(type, count, start) {
             var requestUri = appConfig.APIENDPOINT + '?request=school_list&type=' + type;
             if( typeof(count) !== "undefined" && count) {
@@ -35,6 +36,20 @@
 
         function getSchoolById(id, slug) {
             var requestUri = appConfig.APIENDPOINT + '?request=school_data&id=' + id + '&slug=' + slug;
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                }
+            }, function(error){
+                appLogService.logerror(error, error.data);
+            });
+        }
+        
+        function getSchoolsByCategory(catSlug, start){
+            var requestUri = appConfig.APIENDPOINT + '?request=school_list&type=category&category=' + catSlug;
+            if( typeof(start) !== "undefined" && start) {
+                requestUri += '&start=' + start;
+            }
             return $http.get(requestUri, {}).then(function (response){
                 if(response.data.status) {
                     return response.data;

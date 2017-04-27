@@ -1,7 +1,8 @@
-body{
+body {
     font-family: 'Roboto', sans-serif;
-    margin-top:66px;
+    margin-top: 66px;
 }
+
 .navbar {
     margin-bottom: 0px;
     background: #fff;
@@ -18,21 +19,21 @@ body{
 }
 
 @media screen and (min-width:768px) {
-    
-    #navbar-search{
+    #navbar-search {
         width: 400px
     }
 }
 
-.navbar-toggle{
+.navbar-toggle {
     background: #666;
 }
 
-.navbar-toggle .icon-bar{
+.navbar-toggle .icon-bar {
     background: #fff;
 }
 
-.nav>li>a:focus, .nav>li>a:hover{
+.nav>li>a:focus,
+.nav>li>a:hover {
     background: inherit;
     text-decoration: underline;
 }
@@ -51,18 +52,23 @@ body{
 #home-page-banner {
     background-image: url('./../images/page-banner/home-banner.jpg');
 }
-#compare-page-banner{
+
+#compare-page-banner {
     background-image: url('./../images/page-banner/compare-banner.jpg');
 }
-#discover-page-banner{
+
+#discover-page-banner {
     background-image: url('./../images/page-banner/discover-banner.jpg');
 }
-#about-page-banner{
+
+#about-page-banner {
     background-image: url('./../images/page-banner/about-banner.jpg');
 }
-#browse-page-banner{
+
+#browse-page-banner {
     background-image: url('./../images/page-banner/about-banner.jpg');
 }
+
 .gutter-section {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -86,7 +92,7 @@ body{
     color: #666;
 }
 
-.headline-text.subheading{
+.headline-text.subheading {
     font-size: 36px;
 }
 
@@ -113,45 +119,76 @@ body{
 .card .thumbnail .caption {
     padding: 0px 10px;
 }
+
 .inline-schools-section .list-label {
     margin-bottom: 30px;
-    font-size:26px;
+    font-size: 26px;
 }
+
 .inline-schools-section .school-name {
     color: #777;
     font-size: 14px;
 }
+
 .featured-article-section .article {
     margin-top: 20px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
+
 #home-compare-section {
     background: #333;
 }
-#home-compare-section .headline-text{
+
+#home-compare-section .headline-text {
     color: #fff;
 }
+
 .footer {
     background: #333;
     color: #fff;
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
 .footer-links {
     margin-bottom: 20px;
 }
+
 .footer-link-label {
     color: #bbb;
 }
+
 .footer-links a {
     color: #fafafa;
     font-size: 16px;
     line-height: 28px;
     transition: color linear 2s;
 }
+
 .footer-links a:hover {
     color: #00b0ff;
 }
-.views-container{
-    min-height:600px;
+
+.views-container {
+    min-height: 600px;
+}
+
+.school-header-box {
+    padding: 20px 0px 30px;
+    background: #17476D;
+    color: #fff;
+    font-family: Arial;
+    margin-bottom: 20px;
+}
+
+.school-header-box .meta-box {
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 5px 15px 5px 0px;
+    margin-right: 15px;
+    border-right: 1px solid #666;
+}
+
+.angular-google-map-container {
+    height: 400px;
 }

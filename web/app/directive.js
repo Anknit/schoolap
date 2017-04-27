@@ -3,6 +3,7 @@
         .module('schoolap')
         .directive('mainNav', mainNav)
         .directive('inlineSchoolsList', inlineSchoolsList)
+        .directive('schoolListItem', schoolListItem)
         .directive('featuredSchools', featuredSchools)
         .directive('siteFooter', siteFooter)
         .directive('authModal', authModal)
@@ -39,6 +40,14 @@
                     }
                 });
             }
+        };
+        return DDO;
+    }
+
+    function schoolListItem (){
+        var DDO = {
+            restrict: 'EA',
+            templateUrl: 'template/directives/school-list-item.html'
         };
         return DDO;
     }
