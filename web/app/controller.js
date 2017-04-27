@@ -8,10 +8,6 @@
         .controller('schoolHomeController', schoolHomeController)
         .controller('articleHomeController', articleHomeController)
         .controller('aboutController', aboutController);
-    
-/*
-    compareController.$inject = ['$http'];
-*/
 
     function homeController () {
         var self = this;
@@ -98,8 +94,16 @@
         var self = this;
     }
     
-    function browseController () {
+    browseController.$inject = ['$routeParams', 'stateListService'];
+    function browseController ($routeParams, stateListService) {
         var self = this;
+        self.states = [];
+
+        if($routeParams.browseType == 'states') {
+            stateListService.getStateList().then(function(response){
+                self.states = response.data;
+            });
+        }
     }
     
     function aboutController () {

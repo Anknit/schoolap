@@ -30,7 +30,7 @@
                 controller: 'aboutController',
                 controllerAs: 'about'
             })
-            .when('/browse', {
+            .when('/browse/:browseType', {
                 templateUrl: 'template/views/browse.html',
                 controller: 'browseController',
                 controllerAs: 'browse'

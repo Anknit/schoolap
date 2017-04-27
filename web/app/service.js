@@ -5,7 +5,9 @@
         .service('alertService', alertService)
         .service('userAuthService', userAuthService)
         .service('schoolListService', schoolListService)
+        .service('stateListService', stateListService)
         .service('compareSchoolService', compareSchoolService)
+        .service('geoLocationService', geoLocationService)
         .service('articleListService', articleListService);
 
 //  Service for list of schools
@@ -41,6 +43,29 @@
                 appLogService.logerror(error, error.data);
             });
         }
+    }
+    
+//  Service for list of states    
+    stateListService.$inject = ['$http', 'appConfig', 'appLogService'];
+    function stateListService ($http, appConfig, appLogService) {
+        this.getStateList = getStateList;
+        this.list = [];
+        function getStateList() {
+            if(this.list.length == 0) {
+                var requestUri = appConfig.APIENDPOINT + '?request=state_list';
+                return $http.get(requestUri, {}).then(function (response){
+                    if(response.data.status) {
+                        this.list = response.data;
+                        return response.data;
+                    }
+                }, function(error){
+                    appLogService.logerror(error, error.data);
+                });
+            } else {
+                return this.list;
+            }
+        }
+        
     }
     
 //  Service for list of articles
@@ -206,6 +231,20 @@
             $log.error(error);
         }
     }
+    
+//  Service for handling location of user
+    geoLocationService.$inject = ['$window', 'appLogService', 'alertService'];
+    function geoLocationService ($window, appLogService, alertService) {
+        this.getLocation = function (success, error) {
+            var options = {maximumAge:60000, timeout:5000, enableHighAccuracy:true};
+            if ($window.navigator.geolocation) {
+                $window.navigator.geolocation.getCurrentPosition(success, error, options);
+            } else {
+                appLogService.logerror("Geolocation is not supported by this browser.");
+                alertService.alert("Geolocation is not supported by this browser.");
+            }
+        }
+    };
     
 //  Service for alerts and prompts in application
     alertService.$inject = ['$window'];

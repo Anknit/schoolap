@@ -6,6 +6,7 @@
         .directive('featuredSchools', featuredSchools)
         .directive('siteFooter', siteFooter)
         .directive('authModal', authModal)
+        .directive('locationButton', locationButton)
         .directive('pollsSection', pollsSection)
         .directive('featuredPrograms', featuredPrograms)
         .directive('eventsArea', eventsArea)
@@ -104,6 +105,25 @@
                         } else {
                             
                         }
+                    });
+                }
+            }
+        };
+        return DDO;
+    }
+    
+    locationButton.$inject = ['geoLocationService'];
+    function locationButton (geoLocationService) {
+        var DDO = {
+            restrict: 'E',
+            scope:true,
+            templateUrl: 'template/directives/location-button.html',
+            link: function (scope, elem, attr){
+                scope.getLocation = function(){
+                    geoLocationService.getLocation(function (position) {
+                        alert(position.coords.latitude, position.coords.longitude);
+                    }, function(error) {
+                        console.log(error);
                     });
                 }
             }

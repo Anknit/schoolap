@@ -24,6 +24,9 @@
                 case 'article_data':
                     $response = getArticleData();
                     break;
+                case 'state_list':
+                    $response = getStateList();
+                    break;
                 default:
                     $response['status'] = false;
                     break;
@@ -44,6 +47,20 @@ function getSchoolList () {
         'categories' => '2'
     );
     $response = wpQuery('getPosts', $queryArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
+}
+
+function getStateList () {
+    $perPage = 50;
+    $queryArr = array(
+        'parent' => '7',
+        'per_page' => $perPage
+    );
+    $response = wpQuery('getCategories', $queryArr);
     if($response['status']) {
         return $response;
     } else {
@@ -125,6 +142,10 @@ function wpQuery($reqType, $queryArr, $urlArray) {
         case 'getPosts':
             $method = 'GET';
             $endpoint = 'posts';
+            break;
+        case 'getCategories':
+            $method = 'GET';
+            $endpoint = 'categories';
             break;
         default:
             break;
