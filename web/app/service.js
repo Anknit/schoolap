@@ -14,7 +14,7 @@
     schoolListService.$inject = ['$http', 'appConfig', 'appLogService'];
     function schoolListService ($http, appConfig, appLogService) {
         this.getSchoolListByType = getSchoolByType;
-        this.getSchoolById = getSchoolById;
+        this.getSchoolBySlug = getSchoolBySlug;
         this.getSchoolsByCategory = getSchoolsByCategory;
   
         function getSchoolByType(type, count, start) {
@@ -34,8 +34,8 @@
             });
         }
 
-        function getSchoolById(id, slug) {
-            var requestUri = appConfig.APIENDPOINT + '?request=school_data&id=' + id + '&slug=' + slug;
+        function getSchoolBySlug(slug) {
+            var requestUri = appConfig.APIENDPOINT + '?request=school_data&slug=' + slug;
             return $http.get(requestUri, {}).then(function (response){
                 if(response.data.status) {
                     return response.data;
@@ -130,7 +130,7 @@
                 user: credObj.username,
                 pswd: credObj.password
             };
-            return $http.post(appConfig.APIENDPOINT + '?request=userLogin', data, {}).then(function (response){
+            return $http.post(appConfig.APIENDPOINT + '?request=user_login', data, {}).then(function (response){
                 if(response.data.status) {
                     return response.data;
                 }
@@ -143,7 +143,7 @@
             var data= {
                 username: email
             };
-            return $http.post(appConfig.APIENDPOINT + '?request=userRegister', data, {}).then(function (response){
+            return $http.post(appConfig.APIENDPOINT + '?request=user_register', data, {}).then(function (response){
                 if(response.data.status) {
                     return response.data;
                 }
@@ -156,7 +156,7 @@
             var data= {
                 username: email
             };
-            return $http.post(appConfig.APIENDPOINT + '?request=forgotPassword', data, {}).then(function (response){
+            return $http.post(appConfig.APIENDPOINT + '?request=user_forgot_password', data, {}).then(function (response){
                 if(response.data.status) {
                     return response.data;
                 }
@@ -248,9 +248,13 @@
     }
     
 //  Service for handling location of user
-    geoLocationService.$inject = ['$window', 'appLogService', 'alertService'];
-    function geoLocationService ($window, appLogService, alertService) {
-        this.getLocation = function (success, error) {
+    geoLocationService.$inject = ['$window', 'appLogService', 'appConfig', '$http'];
+    function geoLocationService ($window, appLogService, appConfig, $http) {
+        var self = this;
+        self.getLocationDetail = getLocationDetail;
+        self.getLocation = getLocation;
+
+        function getLocation (success, error) {
             var options = {maximumAge:60000, timeout:5000, enableHighAccuracy:true};
             if ($window.navigator.geolocation) {
                 $window.navigator.geolocation.getCurrentPosition(success, error, options);
@@ -259,7 +263,27 @@
                 alertService.alert("Geolocation is not supported by this browser.");
             }
         }
+
+        function getLocationDetail(coords){
+            var endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?';
+            if(coords.lat != '' && coords.long) {
+                endpoint += 'latlng=' + coords.lat + ',' + coords.long;
+            } else {
+                return false;
+            }
+            if(appConfig.GMAPAPIKEY && appConfig.GMAPAPIKEY != '') {
+                endpoint += '&key' + appConfig.GMAPAPIKEY;
+            } else {
+                return false;
+            }
+            $http.get(endpoint, {}).then(function(response) {
+                appLogService.logerror(response);
+            }, function(error) {
+                appLogService.logerror(error);
+            });
+        }
     };
+    
     
 //  Service for alerts and prompts in application
     alertService.$inject = ['$window'];

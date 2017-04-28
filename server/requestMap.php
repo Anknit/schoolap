@@ -27,6 +27,9 @@
                 case 'state_list':
                     $response = getStateList();
                     break;
+                case 'user_login':
+                    $response = userSignin();
+                    break;
                 default:
                     $response['status'] = false;
                     break;
@@ -66,7 +69,20 @@ function getSchoolList () {
 function getStateList () {
     $perPage = 50;
     $queryArr = array(
-        'parent' => '7',
+        'parent' => '8',
+        'per_page' => $perPage
+    );
+    $response = wpQuery('getCategories', $queryArr);
+    if($response['status']) {
+        return $response;
+    } else {
+        return $response;
+    }
+}
+
+function userSignin () {
+    $queryArr = array(
+        'parent' => '8',
         'per_page' => $perPage
     );
     $response = wpQuery('getCategories', $queryArr);
@@ -101,16 +117,11 @@ function getSchoolData () {
     if(isset($_REQUEST['slug'])) {
         $slug = $_REQUEST['slug'];
     }
-    if(isset($_REQUEST['id'])) {
-        $id = $_REQUEST['id'];
-    }
     $queryArr = array(
         '_embed' => '',
         'slug' => $slug
     );
-    
-    $urlArr = array($id);
-    $response = wpQuery('getPosts', $queryArr, $urlArr);
+    $response = wpQuery('getPosts', $queryArr);
     if($response['status']) {
         return $response;
     } else {

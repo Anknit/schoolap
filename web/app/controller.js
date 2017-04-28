@@ -133,8 +133,7 @@
 
     function schoolHomeController(schoolListService, $routeParams, uiGmapGoogleMapApi, $log) {
         var self = this,
-            slugName = $routeParams.slug,
-            schoolId = $routeParams.id;
+            slugName = $routeParams.slug;
         self.schoolData = [];
         self.map = {
             center: {
@@ -171,10 +170,10 @@
             }
         };
         });
-        schoolListService.getSchoolById(schoolId, slugName).then(function (response) {
+        schoolListService.getSchoolBySlug(slugName).then(function (response) {
             if (response.status) {
                 if (response.data) {
-                    self.schoolData = response.data;
+                    self.schoolData = response.data[0];
                 }
             }
         });

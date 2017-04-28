@@ -125,12 +125,11 @@
     function locationButton (geoLocationService) {
         var DDO = {
             restrict: 'E',
-            scope:true,
             templateUrl: 'template/directives/location-button.html',
             link: function (scope, elem, attr){
                 scope.getLocation = function(){
                     geoLocationService.getLocation(function (position) {
-                        alert(position.coords.latitude, position.coords.longitude);
+//                        geoLocationService.getLocationDetail({lat: position.coords.latitude, long: position.coords.longitude});
                     }, function(error) {
                         console.log(error);
                     });
