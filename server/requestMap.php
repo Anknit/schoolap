@@ -1,8 +1,9 @@
 <?php
     class requestMapper {
         private $requestType;
-        public function __construct ($req) {
-            $this->requestType = $req;
+        public function __construct ($params) {
+            $this->requestType = $params['requestType'];
+            $this->requestParams	= $params['requestParams'];
         }
         
         public function __destruct() {
@@ -28,8 +29,18 @@
                     $response = getStateList();
                     break;
                 case 'user_login':
-                    $response = userSignin();
+                    $response = userSignin( $this->requestParams );
+                    return $response;
                     break;
+                case 'user_register':
+                	$response = userRegister( $this->requestParams );
+                	break;
+                case 'google_user_login':
+                	$response = google_user_signin( $this->requestParams );
+                	break;
+                case 'fb_user_login':
+                	$response = userSignin();
+                	break;
                 default:
                     $response['status'] = false;
                     break;
@@ -80,18 +91,61 @@ function getStateList () {
     }
 }
 
-function userSignin () {
-    $queryArr = array(
-        'parent' => '8',
-        'per_page' => $perPage
-    );
-    $response = wpQuery('getCategories', $queryArr);
-    if($response['status']) {
-        return $response;
-    } else {
-        return $response;
-    }
+function userSignin ( $params ) {
+	$output	=	array();
+	$login_obj		=	new _user_login();
+	$login_response	=	$login_obj	-> initiate_wp_session( $params );
+	
+	$output['status']	=	$login_response['status'];
+	if ( !$login_response['status'] ){	
+		if ( isset($login_response['reason']) ){
+			$output['reason']	=	$login_response['reason'];
+		}		
+	}	
+	return $output;
 }
+
+function userRegister ( $params ) {
+	$output	=	array();
+	$login_obj		=	new _user_login();
+	$login_response	=	$login_obj	-> insert_user_in_wp( $params );
+	
+	if( $login_response['status'] ) {
+		
+	}
+	$output['status']	=	$login_response['status'];
+	if ( !$login_response['status'] ){
+		if ( isset($login_response['reason']) ){
+			$output['reason']	=	$login_response['reason'];
+		}
+	}
+	return $output;
+}
+
+function google_user_signin ( $params ){
+	$output	=	array();
+	$login_obj		=	new _user_login();
+	if ( !isset( $params['token'] ) || empty( $params['token'] ) ) {
+		$output['status']	=	false;
+		$output['reason']	=	'No token found';
+	}
+	else{
+		$google_response	=	$login_obj	-> sso_google_signin( $params['token'] );
+		if( $google_response['status'] ){
+			$login_response	=	$this -> initiate_wp_session( $google_response['server_data'] );
+			$output['status']	=	$login_response['status'];
+			if ( !$login_response['status'] &&	!empty($login_response['reason'])){
+				$output['reason']	=	$login_response['reason'];
+			}
+		}
+		else{
+			$output['status']	=	$google_response['status'];
+			$output['reason']	=	$google_response['reason'];
+		}
+	}	
+	return $output;
+}
+
 
 function getArticleList () {
     $perPage = 4;
