@@ -17,6 +17,11 @@
                     <div class="meta-box">
                         <div data-ng-bind="schoolHome.schoolData.metadata.status_of_school"></div>
                     </div>
+                    <div class="meta-box">
+                        <div data-ng-repeat="star in schoolHome.ratingStars track by $index" class="rating-stars">
+                            <span class="glyphicon" data-rate-value="{{$index}}" data-ng-class="($index <= (schoolHome.avgrating -1)) ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,6 +83,19 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container rating-container">
+            <h3>Rate School</h3>
+            <div class="star-rating-container">
+                <div data-ng-repeat="star in schoolHome.ratingStars track by $index" class="rating-stars">
+                    <span class="glyphicon" data-rate-value="{{$index}}" data-ng-mouseover="schoolHome.currentUserRating = ($index + 1)" data-ng-class="(($index + 1) <= (schoolHome.currentUserRating)) ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" data-ng-click="schoolHome.submitRating()" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>

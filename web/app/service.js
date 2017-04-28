@@ -8,6 +8,7 @@
         .service('stateListService', stateListService)
         .service('compareSchoolService', compareSchoolService)
         .service('geoLocationService', geoLocationService)
+        .service('ratingService', ratingService)
         .service('articleListService', articleListService);
 
 //  Service for list of schools
@@ -284,6 +285,28 @@
         }
     };
     
+//  Service for rating and review
+    ratingService.$inject = ['$http', 'appConfig', 'appLogService']
+    function ratingService ($http, appConfig, appLogService) {
+        var self = this;
+        self.rateSchool = rateSchool;
+        
+        function rateSchool (schoolId, rateVal) {
+            var requestUri = appConfig.APIENDPOINT + '?request=rate_school';
+            if(schoolId && schoolId != '' && rateVal && rateVal != '') {
+                requestUri += '&id=' + schoolId + '&val=' + rateVal;
+            }
+            return $http.get(requestUri, {}).then(function (response){
+                if(response.data.status) {
+                    return response.data;
+                } else{
+                    appLogService.logerror(response.data);
+                }
+            }, function (error){
+                appLogService.logerror(error);
+            })
+        }
+    }
     
 //  Service for alerts and prompts in application
     alertService.$inject = ['$window'];

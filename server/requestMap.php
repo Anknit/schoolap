@@ -1,8 +1,13 @@
 <?php
+    require_once __DIR__.'./../wordpress/wp-load.php';
     class requestMapper {
         private $requestType;
         public function __construct ($params) {
-            $this->requestType = $params['requestType'];
+            if(isset($params['request'])) {
+                $this->requestType = $params['request'];
+            } else {
+                $this->requestType = $params['requestType'];
+            }
             $this->requestParams	= $params['requestParams'];
         }
         
@@ -40,6 +45,9 @@
                 	break;
                 case 'fb_user_login':
                 	$response = userSignin();
+                	break;
+                case 'rate_school':
+                	$response = rateSchool();
                 	break;
                 default:
                     $response['status'] = false;
@@ -146,6 +154,9 @@ function google_user_signin ( $params ){
 	return $output;
 }
 
+function rateSchool () {
+    
+}
 
 function getArticleList () {
     $perPage = 4;

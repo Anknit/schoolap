@@ -189,6 +189,24 @@ body {
     border-right: 1px solid #666;
 }
 
+.school-header-box .meta-box:last-child {
+    border: none;
+}
+
 .angular-google-map-container {
     height: 400px;
+}
+
+.rating-stars {
+    display: inline;
+    color: #ffca00;
+}
+
+.star-rating-container .rating-stars{
+    font-size:20px;
+    cursor:pointer;
+}
+
+.rating-stars .glyphicon-star-empty {
+    opacity: 0.7;
 }

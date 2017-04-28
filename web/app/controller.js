@@ -129,12 +129,15 @@
         var self = this;
     }
 
-    schoolHomeController.$inject = ['schoolListService', '$routeParams', 'uiGmapGoogleMapApi', '$log'];
+    schoolHomeController.$inject = ['schoolListService', '$routeParams', 'uiGmapGoogleMapApi', '$log', 'ratingService'];
 
-    function schoolHomeController(schoolListService, $routeParams, uiGmapGoogleMapApi, $log) {
+    function schoolHomeController(schoolListService, $routeParams, uiGmapGoogleMapApi, $log, ratingService) {
         var self = this,
             slugName = $routeParams.slug;
         self.schoolData = [];
+        self.ratingStars = [1,2,3,4,5];
+        self.avgrating = 2;
+        self.currentUserRating = 0;
         self.map = {
             center: {
                 latitude: 45,
@@ -177,6 +180,11 @@
                 }
             }
         });
+        self.submitRating = function(){
+            ratingService.rateSchool(self.schoolData.id, self.currentUserRating).then(function(response){
+                self.avgrating = response.data.avgrating;
+            })
+        }
     }
 
     articleHomeController.$inject = ['articleListService', '$routeParams']
