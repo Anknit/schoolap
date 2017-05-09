@@ -10,8 +10,19 @@
         .controller('articleHomeController', articleHomeController)
         .controller('aboutController', aboutController);
 
-    function homeController() {
+    homeController.$inject = ['localStorageService', '$scope'];
+    function homeController(localStorageService, $scope) {
         var self = this;
+        self.userLocation = {status: false};
+        var userlocation = localStorageService.getData('userLocation', true);
+        if(userlocation.status) {
+            self.userLocation.status = true;
+            self.userLocation.lat = userlocation.lat;
+            self.userLocation.long = userlocation.long;
+        }
+        $scope.$on('userLocationUpdated', function(data){
+            console.log(data);
+        });
     }
 
     compareController.$inject = ['compareSchoolService', 'alertService'];

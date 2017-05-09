@@ -9,6 +9,7 @@
         .service('compareSchoolService', compareSchoolService)
         .service('geoLocationService', geoLocationService)
         .service('ratingService', ratingService)
+        .service('localStorageService', localStorageService)
         .service('articleListService', articleListService);
 
 //  Service for list of schools
@@ -316,4 +317,26 @@
         }
     }
     
+    localStorageService.$inject = ['$window'];
+    function localStorageService ($window) {
+        var self = this;
+        self.getData = function(key, isJSON) {
+            var response, localData = $window.localStorage.getItem(key);
+            if(typeof (localData) != "undefined" && localData != '' && localData != null) {
+                if(isJSON) {
+                    localData = angular.fromJson(localData);
+                }
+                response = {status: true, data: localData};
+            } else {
+                response = {status: false};
+            }
+            return response;
+        };
+        self.setData = function(key, data, isJSON) {
+            if(isJSON) {
+                data = angular.toJson(data);
+            }
+            $window.localStorage.setItem(key, data);
+        }
+    }
 })();

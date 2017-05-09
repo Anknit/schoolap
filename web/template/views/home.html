@@ -6,7 +6,6 @@
             <h1 class="headline-text">
                 We help millions of parents get a great education for their child.
             </h1>
-            <location-button class="txt-center"></location-button>
             <a class="btn btn-success btn-lg" href="about">Learn More</a>
         </div>
     </div>
@@ -15,7 +14,7 @@
     <div class="row">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12" data-ng-if="home.userLocation.status">
                     <inline-schools-list data-type="featured" data-label="Featured Schools"></inline-schools-list>
                     <inline-schools-list data-type="nearby" data-label="Schools Near You"></inline-schools-list>
                     <inline-schools-list data-type="visited" data-label="Most Visited Schools"></inline-schools-list>
@@ -23,6 +22,12 @@
 <!--
                     <polls-section></polls-section>
 -->
+                </div>
+                <div class="col-xs-12 text-center gutter-section" data-ng-if="!home.userLocation.status">
+                    <h1 class="headline-text">
+                        Find schools near your area.
+                    </h1>
+                    <button location-button class="btn btn-success btn-lg">Locate me</button>
                 </div>
 <!--
                 <div class="col-sm-12 col-md-8">

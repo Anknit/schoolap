@@ -121,19 +121,19 @@
         return DDO;
     }
     
-    locationButton.$inject = ['geoLocationService'];
-    function locationButton (geoLocationService) {
+    locationButton.$inject = ['geoLocationService', 'localStorageService', '$rootScope'];
+    function locationButton (geoLocationService, localStorageService) {
         var DDO = {
-            restrict: 'E',
-            templateUrl: 'template/directives/location-button.html',
+            restrict: 'AC',
             link: function (scope, elem, attr){
-                scope.getLocation = function(){
+                elem.on('click', function(){
                     geoLocationService.getLocation(function (position) {
-//                        geoLocationService.getLocationDetail({lat: position.coords.latitude, long: position.coords.longitude});
+                        localStorageService.setData('userLocation', {lat:position.coords.latitude, long: position.coords.longitude}, true);
+                        $rootScope.$broadcast('userLocationUpdated', position);
                     }, function(error) {
                         console.log(error);
                     });
-                }
+                })
             }
         };
         return DDO;
