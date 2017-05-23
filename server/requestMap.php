@@ -61,9 +61,10 @@
 function getSchoolList () {
     $perPage = 4;
     $startIndex = 0;
-    $category = '2';
+    $category = 'Schools';
+    $meta_query = array();
     if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'category' && isset($_REQUEST['category'])) {
-        $category = getCatIdFromSlug($_REQUEST['category']);
+        $category = $_REQUEST['category'];
         $perPage = 10;
     }
     if(isset($_REQUEST['count'])) {
@@ -72,12 +73,32 @@ function getSchoolList () {
     if(isset($_REQUEST['start'])) {
         $startIndex = $_REQUEST['start'];
     }
-    $queryArr = array(
-        '_embed' => '',
-        'per_page' => $perPage,
-        'categories' => $category
+    if(isset($_REQUEST['lat']) && isset($_REQUEST['long'])) {
+        $meta_query['relation'] = 'AND';
+        array_push($meta_query, array(
+            'key' => 'latitude_address',
+            'value' => array($_REQUEST['lat'] - 2, $_REQUEST['lat'] + 2),
+            'compare' => 'BETWEEN'
+        ));
+        array_push($meta_query, array(
+            'key' => 'longitude_address',
+            'value' => array($_REQUEST['long'] - 2, $_REQUEST['long'] + 2),
+            'compare' => 'BETWEEN'
+        ));
+    }
+    $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => $perPage,
+        'category_name' => $category,
+        'offset' => $startIndex,
+        'meta_query' => $meta_query
     );
-    $response = wpQuery('getPosts', $queryArr);
+    
+    $query = new WP_Query($args);
+    if($query->have_posts()) {
+        $response['status'] = true;
+        $response['data'] = $query->get_posts();
+    }
     if($response['status']) {
         return $response;
     } else {
@@ -288,5 +309,4 @@ function wpQuery($reqType, $queryArr, $urlArray = array()) {
     }
     return $response;
 }
-
 ?>

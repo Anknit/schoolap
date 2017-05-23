@@ -11,6 +11,7 @@
         .directive('pollsSection', pollsSection)
         .directive('featuredPrograms', featuredPrograms)
         .directive('eventsArea', eventsArea)
+        .directive('imgFallback', imgFallback)
         .directive('featuredArticles', featuredArticles);
 
     function mainNav () {
@@ -21,6 +22,21 @@
         return DDO;
     }
     
+    function imgFallback () {
+        var DDO = {
+            restrict: 'A',
+            link: function(scope, elem, attr) {
+                if(typeof(attr.ngSrc) == "undefined") {
+                    elem[0].src  = './images/featured-schools/school1.jpg';
+                } else{
+                    elem.bind('error', function(){
+                        elem[0].src  = './images/featured-schools/school1.jpg';
+                    })
+                }
+            }
+        };
+        return DDO;
+    }
     inlineSchoolsList.$inject = ['schoolListService'];
     function inlineSchoolsList (schoolListService) {
         var DDO = {
@@ -122,7 +138,7 @@
     }
     
     locationButton.$inject = ['geoLocationService', 'localStorageService', '$rootScope'];
-    function locationButton (geoLocationService, localStorageService) {
+    function locationButton (geoLocationService, localStorageService, $rootScope) {
         var DDO = {
             restrict: 'AC',
             link: function (scope, elem, attr){

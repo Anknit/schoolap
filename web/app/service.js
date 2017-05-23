@@ -13,8 +13,8 @@
         .service('articleListService', articleListService);
 
 //  Service for list of schools
-    schoolListService.$inject = ['$http', 'appConfig', 'appLogService'];
-    function schoolListService ($http, appConfig, appLogService) {
+    schoolListService.$inject = ['$http', 'appConfig', 'appLogService', 'localStorageService'];
+    function schoolListService ($http, appConfig, appLogService, localStorageService) {
         this.getSchoolListByType = getSchoolByType;
         this.getSchoolBySlug = getSchoolBySlug;
         this.getSchoolsByCategory = getSchoolsByCategory;
@@ -26,6 +26,11 @@
             }
             if( typeof(start) !== "undefined" && start) {
                 requestUri += '&start=' + start;
+            }
+            var userLoc = localStorageService.getData('userLocation', true);
+            if(userLoc.status) {
+                requestUri += '&lat=' + userLoc.data.lat;
+                requestUri += '&long=' + userLoc.data.long;
             }
             return $http.get(requestUri, {}).then(function (response){
                 if(response.data.status) {
